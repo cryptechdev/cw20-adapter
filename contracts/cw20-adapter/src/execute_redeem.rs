@@ -1,4 +1,4 @@
-use cosmwasm_std::{to_binary, Binary, DepsMut, Env, MessageInfo, Response, WasmMsg};
+use cosmwasm_std::{to_json_binary, Binary, DepsMut, Env, MessageInfo, Response, WasmMsg};
 use cw20::Cw20ExecuteMsg;
 use injective_cosmwasm::{create_burn_tokens_msg, InjectiveMsgWrapper, InjectiveQueryWrapper};
 
@@ -26,16 +26,11 @@ pub fn handle_redeem_msg(
                 Ok(denom) => Some(AdapterCoin { amount: c.amount, denom }),
                 Err(_) => None,
             }
-            // if denom_parser.is_match(&c.denom) {
-            //     Some(c.clone())
-            // } else {
-            //     None
-            // }
         })
         .ok_or(ContractError::NoRegisteredTokensProvided)?;
 
     let cw20_addr = tokens_to_exchange.denom.cw20_addr.clone();
-    // let cw20_addr = get_cw20_address_from_denom(&denom_parser, &tokens_to_exchange.denom).ok_or(ContractError::NoRegisteredTokensProvided)?;
+
     let is_contract_registered = CW20_CONTRACTS.contains(deps.storage, &tokens_to_exchange.denom.cw20_addr);
     if !is_contract_registered {
         return Err(ContractError::NoRegisteredTokensProvided);
@@ -46,7 +41,7 @@ pub fn handle_redeem_msg(
     let cw20_message: WasmMsg = match submessage {
         None => WasmMsg::Execute {
             contract_addr: cw20_addr,
-            msg: to_binary(&Cw20ExecuteMsg::Transfer {
+            msg: to_json_binary(&Cw20ExecuteMsg::Transfer {
                 recipient,
                 amount: tokens_to_exchange.amount,
             })?,
@@ -54,7 +49,7 @@ pub fn handle_redeem_msg(
         },
         Some(msg) => WasmMsg::Execute {
             contract_addr: cw20_addr,
-            msg: to_binary(&Cw20ExecuteMsg::Send {
+            msg: to_json_binary(&Cw20ExecuteMsg::Send {
                 contract: recipient,
                 amount: tokens_to_exchange.amount,
                 msg,

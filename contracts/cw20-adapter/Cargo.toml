@@ -1,32 +1,36 @@
 [package]
-name = "cw20-adapter"
-description = "Description of the contract"
-version = { workspace = true }
-authors = { workspace = true }
-edition = { workspace = true }
-license = { workspace = true }
-homepage = { workspace = true }
-repository = { workspace = true }
+authors       = { workspace = true }
+description   = "Description of the contract"
 documentation = { workspace = true }
-keywords = { workspace = true }
-rust-version = { workspace = true }
+edition       = { workspace = true }
+homepage      = { workspace = true }
+keywords      = { workspace = true }
+license       = { workspace = true }
+name          = "cw20-adapter"
+repository    = { workspace = true }
+rust-version  = { workspace = true }
+version       = { workspace = true }
 
 [lib]
-crate-type = ["cdylib", "rlib"]
+crate-type = [ "cdylib", "rlib" ]
 
 [features]
-# for more explicit tests, cargo test --features=backtraces
-backtraces = ["cosmwasm-std/backtraces"]
-# use library feature to disable all instantiate/execute/query exports
-library = []
+library = [  ]
 
 [dependencies]
-cosmwasm-schema = { workspace = true }
-cosmwasm-std = { workspace = true }
-cw2 = { workspace = true }
-cw20 = { workspace = true }
-cw-storage-plus = { workspace = true }
-thiserror = { workspace = true }
-cw-item-set = { workspace = true }
+cosmwasm-schema    = { workspace = true }
+cosmwasm-std       = { workspace = true }
+cw-item-set        = { workspace = true }
+cw-storage-plus    = { workspace = true }
+cw2                = { workspace = true }
+cw20               = { workspace = true }
+cw20-base          = { workspace = true }
 injective-cosmwasm = { workspace = true }
-serde = { workspace = true }
+serde              = { workspace = true }
+thiserror          = { workspace = true }
+
+[dev-dependencies]
+injective-std       = { workspace = true }
+injective-test-tube = { workspace = true }
+injective-testing   = { workspace = true }
+testenv             = { workspace = true }
