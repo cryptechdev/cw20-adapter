@@ -32,6 +32,14 @@ jobs:
           profile: minimal
           toolchain: stable
           override: true
+
+      - name: Compile WASM contracts
+        uses: actions-rs/cargo@v1
+        with:
+          command: build
+          args: --release --lib --target wasm32-unknown-unknown --locked --workspace --exclude testenv
+        env:
+          RUSTFLAGS: "-C link-arg=-s"
       - name: run tests
         uses: actions-rs/cargo@v1
         with:
