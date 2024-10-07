@@ -1,4 +1,4 @@
-use cosmwasm_std::{entry_point, to_binary, Binary, Deps, DepsMut, Env, MessageInfo, Response, StdResult};
+use cosmwasm_std::{entry_point, to_json_binary, Binary, Deps, DepsMut, Env, MessageInfo, Response, StdResult};
 use injective_cosmwasm::{InjectiveMsgWrapper, InjectiveQueryWrapper};
 
 use crate::msg::{ExecuteMsg, InstantiateMsg, QueryMsg};
@@ -37,7 +37,7 @@ pub fn execute(
 #[entry_point]
 pub fn query(deps: Deps<InjectiveQueryWrapper>, _env: Env, msg: QueryMsg) -> StdResult<Binary> {
     match msg {
-        QueryMsg::RegisteredContracts {} => to_binary(&query::registered_contracts(deps)?),
-        QueryMsg::NewDenomFee {} => to_binary(&query::new_denom_fee(deps)?),
+        QueryMsg::RegisteredContracts {} => to_json_binary(&query::registered_contracts(deps)?),
+        QueryMsg::NewDenomFee {} => to_json_binary(&query::new_denom_fee(deps)?),
     }
 }

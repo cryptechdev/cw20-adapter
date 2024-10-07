@@ -8,3 +8,6 @@ pub mod execute_register;
 pub mod msg;
 pub mod query;
 pub mod state;
+
+#[cfg(test)]
+mod testing;
