@@ -24,6 +24,14 @@ jobs:
           override: true
           components: llvm-tools-preview
 
+      - name: Compile WASM contracts
+        uses: actions-rs/cargo@v1
+        with:
+          command: build
+          args: --release --lib --target wasm32-unknown-unknown --locked --workspace --exclude testenv
+        env:
+          RUSTFLAGS: "-C link-arg=-s"
+
       - name: Run Integration Tests
         uses: actions-rs/cargo@v1
         with:
