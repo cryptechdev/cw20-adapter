@@ -3614,8 +3614,3 @@ dependencies = [
  "quote",
  "syn 2.0.77",
 ]
-
-[[patch.unused]]
-name = "injective-cosmwasm"
-version = "0.1.74"
-source = "git+https://github.com/InjectiveLabs/cw-injective.git?branch=dev#f0c00001f04ee004f9c97ecbe012127c7111bc44"
